@@ -26,7 +26,7 @@ import zmaster587.advancedRocketry.api.*;
 import zmaster587.advancedRocketry.api.fuel.FuelRegistry;
 import zmaster587.advancedRocketry.api.fuel.FuelRegistry.FuelType;
 import zmaster587.advancedRocketry.block.BlockTileRedstoneEmitter;
-import zmaster587.advancedRocketry.tile.TileRocketAssemblingMachine;
+import zmaster587.advancedRocketry.tile.TileRocketAssembler;
 import zmaster587.libVulpes.LibVulpes;
 import zmaster587.libVulpes.api.LibvulpesGuiRegistry;
 import zmaster587.libVulpes.gui.CommonResources;
@@ -38,7 +38,7 @@ import zmaster587.libVulpes.items.ItemLinker;
 import zmaster587.libVulpes.network.PacketHandler;
 import zmaster587.libVulpes.network.PacketMachine;
 import zmaster587.libVulpes.tile.IMultiblock;
-import zmaster587.libVulpes.tile.TileInventoriedRFConsumerTank;
+import zmaster587.libVulpes.tile.TileInventoriedFEConsumerTank;
 import zmaster587.libVulpes.util.FluidUtils;
 import zmaster587.libVulpes.util.HashedBlockPosition;
 import zmaster587.libVulpes.util.INetworkMachine;
@@ -50,7 +50,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileFuelingStation extends TileInventoriedRFConsumerTank implements IModularInventory, IMultiblock, IInfrastructure, ILinkableTile, INetworkMachine, IButtonInventory {
+public class TileFuelingStation extends TileInventoriedFEConsumerTank implements IModularInventory, IMultiblock, IInfrastructure, ILinkableTile, INetworkMachine, IButtonInventory {
 	EntityRocketBase linkedRocket;
 	HashedBlockPosition masterBlock;
 	ModuleRedstoneOutputButton redstoneControl;
@@ -165,7 +165,7 @@ public class TileFuelingStation extends TileInventoriedRFConsumerTank implements
 
 	@Override
 	public String getModularInventoryName() {
-		return "Fueling Station";
+		return "block.advancedrocketry.fuelingstation";
 	}
 
 
@@ -244,8 +244,8 @@ public class TileFuelingStation extends TileInventoriedRFConsumerTank implements
 	@Override
 	public void remove() {
 		super.remove();
-		if(getMasterBlock() instanceof TileRocketAssemblingMachine)
-			((TileRocketAssemblingMachine)getMasterBlock()).removeConnectedInfrastructure(this);
+		if(getMasterBlock() instanceof TileRocketAssembler)
+			((TileRocketAssembler)getMasterBlock()).removeConnectedInfrastructure(this);
 
 		//Mostly for client rendering stuff
 		if(linkedRocket != null)
